@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29318.209
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GrpcServer", "GrpcServer\GrpcServer.csproj", "{76BCC8CB-48EB-4B86-B74F-9AC501783713}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GrpcServer", "GrpcServer\GrpcServer.csproj", "{76BCC8CB-48EB-4B86-B74F-9AC501783713}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GrpcClient", "GrpcClient\GrpcClient.csproj", "{7E56C537-CA00-4D63-B626-F9AD998AC019}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GrpcClient", "GrpcClient\GrpcClient.csproj", "{7E56C537-CA00-4D63-B626-F9AD998AC019}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GrpcServerStreaming", "GrpcServerStreaming\GrpcServerStreaming.csproj", "{20437978-7AB3-4A14-ABE4-C61560D05B7C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GrpcServerStreaming", "GrpcServerStreaming\GrpcServerStreaming.csproj", "{20437978-7AB3-4A14-ABE4-C61560D05B7C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GrpcClientStreaming", "GrpcClientStreaming\GrpcClientStreaming.csproj", "{19C40E35-9813-4794-8B75-C4E9DB601610}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GrpcClientStreaming", "GrpcClientStreaming\GrpcClientStreaming.csproj", "{19C40E35-9813-4794-8B75-C4E9DB601610}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Grpc", "Grpc", "{C2EF899E-5F44-40DA-9C5D-15165C797EB5}"
 EndProject
@@ -17,19 +17,23 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Grpc2", "Grpc2", "{D045D887
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Grpc3", "Grpc3", "{0C212DFA-F861-4AAE-BAC9-095E3E788CE4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GrpcServerStreamingRepeated", "GrpcServerStreamingRepeated\GrpcServerStreamingRepeated.csproj", "{3DCDA9BA-72FD-466B-A6BF-50E025D4E76F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GrpcServerStreamingRepeated", "GrpcServerStreamingRepeated\GrpcServerStreamingRepeated.csproj", "{3DCDA9BA-72FD-466B-A6BF-50E025D4E76F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GrpcClientStreamingRepeated", "GrpcClientStreamingRepeated\GrpcClientStreamingRepeated.csproj", "{964A89BC-8D29-49E9-8911-DFED13C5DFB4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GrpcClientStreamingRepeated", "GrpcClientStreamingRepeated\GrpcClientStreamingRepeated.csproj", "{964A89BC-8D29-49E9-8911-DFED13C5DFB4}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Grpc4", "Grpc4", "{2DD5B7FF-7A0A-413A-9474-60A2D6B2561F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GrpcBidirectionalStreaming", "GrpcBidirectionalStreaming\GrpcBidirectionalStreaming.csproj", "{DA6EB624-564D-4C4A-8559-BEAE01B88CFF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GrpcBidirectionalStreaming", "GrpcBidirectionalStreaming\GrpcBidirectionalStreaming.csproj", "{DA6EB624-564D-4C4A-8559-BEAE01B88CFF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GrpcClientBidirectionalStreaming", "GrpcClientBidirectionalStreaming\GrpcClientBidirectionalStreaming.csproj", "{84A21CA5-C85B-438A-B997-061A3773402F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GrpcClientBidirectionalStreaming", "GrpcClientBidirectionalStreaming\GrpcClientBidirectionalStreaming.csproj", "{84A21CA5-C85B-438A-B997-061A3773402F}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Grpc5", "Grpc5", "{07299EC2-9F47-4263-8953-CBE4EEA522B3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GrpcServerMutipleType", "GrpcServerMutipleType\GrpcServerMutipleType.csproj", "{D822CE4F-B72B-48A2-8F5D-508DD4EA2220}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GrpcServerMutipleType", "GrpcServerMutipleType\GrpcServerMutipleType.csproj", "{D822CE4F-B72B-48A2-8F5D-508DD4EA2220}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Grpc6", "Grpc6", "{9088C67D-631D-4836-BA15-E9A1AF4827BB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GrpcClientMutipleType", "GrpcClientMutipleType\GrpcClientMutipleType.csproj", "{8DFC25FC-7EA5-4F30-B575-96C34C5DDB0F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -73,6 +77,10 @@ Global
 		{D822CE4F-B72B-48A2-8F5D-508DD4EA2220}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D822CE4F-B72B-48A2-8F5D-508DD4EA2220}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D822CE4F-B72B-48A2-8F5D-508DD4EA2220}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8DFC25FC-7EA5-4F30-B575-96C34C5DDB0F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8DFC25FC-7EA5-4F30-B575-96C34C5DDB0F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8DFC25FC-7EA5-4F30-B575-96C34C5DDB0F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8DFC25FC-7EA5-4F30-B575-96C34C5DDB0F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -87,6 +95,7 @@ Global
 		{DA6EB624-564D-4C4A-8559-BEAE01B88CFF} = {2DD5B7FF-7A0A-413A-9474-60A2D6B2561F}
 		{84A21CA5-C85B-438A-B997-061A3773402F} = {2DD5B7FF-7A0A-413A-9474-60A2D6B2561F}
 		{D822CE4F-B72B-48A2-8F5D-508DD4EA2220} = {07299EC2-9F47-4263-8953-CBE4EEA522B3}
+		{8DFC25FC-7EA5-4F30-B575-96C34C5DDB0F} = {07299EC2-9F47-4263-8953-CBE4EEA522B3}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {3108C3E7-703F-4337-A12F-20BD23480C83}

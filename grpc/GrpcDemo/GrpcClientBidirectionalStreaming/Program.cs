@@ -47,7 +47,7 @@ namespace GrpcClientBidirectionalStreaming
                     }
 
                 }
-                catch (OverflowException e)
+                catch (OverflowException)
                 {
                     inc = 1;
                 }
