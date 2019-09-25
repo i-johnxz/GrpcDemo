@@ -1,0 +1,16 @@
+{
+  "GrpcClientServerStreamingImg": {
+    "commandName": "Project",
+    "launchBrowser": false,
+    "applicationUrl": "http://localhost:5010",
+    "environmentVariables": {
+      "ASPNETCORE_ENVIRONMENT": "Development"
+    }
+  },
+  "profiles": {
+    "GrpcClientServerStreamingImg": {
+      "commandName": "Project",
+      "applicationUrl": "http://localhost:5010"
+    }
+  }
+}
