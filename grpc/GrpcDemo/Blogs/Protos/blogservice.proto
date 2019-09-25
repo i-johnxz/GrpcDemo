@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+option csharp_namespace = "Blogs.Protos";
+
+package BlogService;
+
+service BlogContextService {
+	rpc AddBlog (BlogRequest) returns (BlogReply) {}
+}
+
+message BlogRequest {
+	string title = 1;
+	string url = 2;
+}
+
+message BlogReply {
+	int64 blogId = 1;
+}
+
