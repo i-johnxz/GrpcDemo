@@ -1,4 +1,26 @@
-﻿$HEADER$namespace $NAMESPACE$
+﻿using System.Threading;
+using System.Threading.Tasks;
+using SampleProject.Domain.SeedWork;
+
+namespace SampleProject.Infrastructure
 {
-  public class $CLASS$ {$END$}
+    public class UnitOfWork : IUnitOfWork
+    {
+        private readonly OrdersContext _ordersContext;
+
+        private readonly IDomainEventsDispatcher _domainEventsDispatcher;
+
+        public UnitOfWork(OrdersContext ordersContext, IDomainEventsDispatcher domainEventsDispatcher)
+        {
+            _ordersContext = ordersContext;
+            _domainEventsDispatcher = domainEventsDispatcher;
+        }
+
+
+        public async Task<int> CommitAsync(CancellationToken cancellationToken = default(CancellationToken))
+        {
+            await this._domainEventsDispatcher.DispatchEventsAsync();
+            return await this._ordersContext.SaveChangesAsync(cancellationToken);
+        }
+    }
 }

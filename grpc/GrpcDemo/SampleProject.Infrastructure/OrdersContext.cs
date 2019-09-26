@@ -2,8 +2,11 @@ using Microsoft.EntityFrameworkCore;
 using SampleProject.Domain.Customers;
 using SampleProject.Domain.Payments;
 using SampleProject.Domain.Products;
+using SampleProject.Infrastructure.Customers;
 using SampleProject.Infrastructure.InternalCommands;
 using SampleProject.Infrastructure.Outbox;
+using SampleProject.Infrastructure.Payments;
+using SampleProject.Infrastructure.Products;
 
 namespace SampleProject.Infrastructure
 {
@@ -26,7 +29,11 @@ namespace SampleProject.Infrastructure
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            base.OnModelCreating(modelBuilder);
+            modelBuilder.ApplyConfiguration(new CustomerEntityTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new ProductEntityTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new PaymentEntityTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new OutboxMessageEntityTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new InternalCommandEntityTypeConfiguration());
         }
     }
 }

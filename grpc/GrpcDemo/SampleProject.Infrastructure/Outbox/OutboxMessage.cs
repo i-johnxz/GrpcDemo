@@ -10,6 +10,8 @@ namespace SampleProject.Infrastructure.Outbox
 
         public string Type { get; set; }
 
+        public string Data { get; set; }
+
         public DateTime? ProcessedDate { get; set; }
 
         private OutboxMessage()
@@ -17,12 +19,12 @@ namespace SampleProject.Infrastructure.Outbox
             
         }
 
-        public OutboxMessage(DateTime occurredOn, string type, DateTime? processedDate)
+        public OutboxMessage(DateTime occurredOn, string type,  string data)
         {
             Id = Guid.NewGuid();
             OccurredOn = occurredOn;
             Type = type;
-            ProcessedDate = processedDate;
+            Data = data;
         }
     }
 }

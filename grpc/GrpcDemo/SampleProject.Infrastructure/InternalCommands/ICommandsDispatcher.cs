@@ -1,7 +1,10 @@
-﻿namespace SampleProject.Infrastructure.InternalCommands
+﻿using System;
+using System.Threading.Tasks;
+
+namespace SampleProject.Infrastructure.InternalCommands
 {
-    public class ICommandsDispatcher
+    public interface ICommandsDispatcher
     {
-        
+        Task DispatchCommandAsync(Guid id);
     }
 }

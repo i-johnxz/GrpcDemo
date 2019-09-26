@@ -1,7 +1,7 @@
 ﻿namespace SampleProject.Infrastructure.SeedWork
 {
-    public class IDomainEventNotification
+    public interface IDomainEventNotification<out TEventType>
     {
-        
+        TEventType DomainEvent { get; }
     }
 }

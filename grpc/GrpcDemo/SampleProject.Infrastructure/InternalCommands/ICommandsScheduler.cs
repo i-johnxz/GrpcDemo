@@ -1,7 +1,10 @@
-﻿namespace SampleProject.Infrastructure.InternalCommands
+﻿using System.Threading.Tasks;
+using MediatR;
+
+namespace SampleProject.Infrastructure.InternalCommands
 {
-    public class ICommandsScheduler
+    public interface ICommandsScheduler
     {
-        
+        Task EnqueueAsync(IRequest command);
     }
 }
