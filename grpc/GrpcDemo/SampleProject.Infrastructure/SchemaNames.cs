@@ -1,4 +1,4 @@
-namespace SampleProject.Infrastructure.Customers
+﻿namespace SampleProject.Infrastructure
 {
     public class SchemaNames
     {
