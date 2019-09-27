@@ -25,7 +25,7 @@ namespace SampleProject.Infrastructure.Customers
             ).AsNoTracking().SingleAsync(x => x.Id == id);
         }
 
-        public Task AddAsync(Customer customer)
+        public async Task AddAsync(Customer customer)
         {
             await this._context.Customers.AddAsync(customer);
         }

@@ -1,5 +1,5 @@
-﻿using System.Text.Json.Serialization;
-using MediatR;
+﻿using MediatR;
+using Newtonsoft.Json;
 
 namespace SampleProject.Infrastructure.SeedWork
 {

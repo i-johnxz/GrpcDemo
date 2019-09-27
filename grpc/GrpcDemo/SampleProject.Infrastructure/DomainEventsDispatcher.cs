@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text.Json;
 using System.Threading.Tasks;
 using Autofac;
 using Autofac.Core;
 using MediatR;
+using Newtonsoft.Json;
 using SampleProject.Domain.SeedWork;
 using SampleProject.Infrastructure.Outbox;
 using SampleProject.Infrastructure.SeedWork;
@@ -67,7 +67,7 @@ namespace SampleProject.Infrastructure
             foreach (var domainEventNotification in domainEventNotifications)
             {
                 string type = domainEventNotification.GetType().FullName;
-                var data = JsonSerializer.Serialize(domainEventNotification);
+                var data = JsonConvert.SerializeObject(domainEventNotification);
                 OutboxMessage outboxMessage = new OutboxMessage(
                     domainEventNotification.DomainEvent.OccurredOn,
                     type,

@@ -25,7 +25,7 @@ namespace SampleProject.Infrastructure.ForeignExchange
             List<ConversionRate> rates = GetConversionRatesFromExternalApi();
 
             this._cacheStore.Add(new ConversionRatesCache(rates), new ConversionRatesCacheKey(),
-                DateTime.Now.Date.Add(1));
+                DateTime.Now.Date.AddDays(1));
 
             return rates;
         }
