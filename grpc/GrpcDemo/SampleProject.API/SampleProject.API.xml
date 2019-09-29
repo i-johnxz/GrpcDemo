@@ -4,6 +4,17 @@
         <name>SampleProject.API</name>
     </assembly>
     <members>
+        <member name="T:SampleProject.API.AutofacServiceProviderFactory">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:SampleProject.API.AutofacServiceProviderFactory.#ctor(Microsoft.Extensions.Configuration.IConfiguration,System.Action{Autofac.ContainerBuilder})">
+            <summary>
+            
+            </summary>
+            <param name="configurationAction"></param>
+        </member>
         <member name="M:SampleProject.API.Orders.CustomerOrdersController.GetCustomerOrders(System.Guid)">
             <summary>
             Get customer orders.
