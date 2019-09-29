@@ -48,55 +48,6 @@ namespace SampleProject.API
 
 
             container.Populate(services);
-
-            //var schedulerFactory = new StdSchedulerFactory();
-
-            //var scheduler = schedulerFactory.GetScheduler().GetAwaiter().GetResult();
-
-
-            //container.RegisterModule(new OutboxModule());
-
-            //container.RegisterModule(new MediatorModule());
-
-            //container.RegisterModule(new InfrastructureModule(_configuration[OrdersConnectionString]));
-
-            //container.RegisterModule(new EmailModule());
-
-
-            //container.Register(c =>
-            //{
-            //    var dbContextOptionsBuilder = new DbContextOptionsBuilder<OrdersContext>();
-            //    dbContextOptionsBuilder.UseSqlServer(this._configuration[OrdersConnectionString]);
-
-            //    dbContextOptionsBuilder
-            //        .ReplaceService<IValueConverterSelector, StronglyTypedIdValueConverterSelector>();
-
-            //    return new OrdersContext(dbContextOptionsBuilder.Options);
-            //}).AsSelf().InstancePerLifetimeScope();
-
-            //scheduler.JobFactory = new JobFactory(container.Build());
-
-            //scheduler.Start().GetAwaiter().GetResult();
-
-            //var processOutboxJob = JobBuilder.Create<ProcessOutboxJob>().Build();
-            //var trigger =
-            //    TriggerBuilder
-            //        .Create()
-            //        .StartNow()
-            //        .WithCronSchedule("0/15 * * ? * *")
-            //        .Build();
-
-            //scheduler.ScheduleJob(processOutboxJob, trigger).GetAwaiter().GetResult();
-
-            //var processInternalCommandsJob = JobBuilder.Create<ProcessInternalCommandsJob>().Build();
-            //var triggerCommandsProcessing =
-            //    TriggerBuilder
-            //        .Create()
-            //        .StartNow()
-            //        .WithCronSchedule("0/15 * * ? * *")
-            //        .Build();
-            //scheduler.ScheduleJob(processInternalCommandsJob, triggerCommandsProcessing).GetAwaiter().GetResult();
-
             _configurationAction(container);
 
             return container;

@@ -50,6 +50,11 @@
             <param name="customerId">Customer ID.</param>
             <param name="orderId">Order ID.</param>
         </member>
+        <member name="F:SampleProject.API.Startup.Configuration">
+            <summary>
+            
+            </summary>
+        </member>
         <member name="M:SampleProject.API.Startup.ConfigureServices(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
             <summary>
             

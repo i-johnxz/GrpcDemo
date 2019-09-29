@@ -12,6 +12,11 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using Quartz;
+using Quartz.Impl;
+using SampleProject.API.InternalCommands;
+using SampleProject.API.Modules;
+using SampleProject.API.Outbox;
 using SampleProject.API.SeedWork;
 using SampleProject.Domain.SeedWork;
 using SampleProject.Infrastructure;
@@ -21,14 +26,19 @@ namespace SampleProject.API
 {
     public class Startup
     {
-        public IConfiguration _Configuration;
-        public ILifetimeScope AutofacContainer;
+        /// <summary>
+        /// 
+        /// </summary>
+        public IConfiguration Configuration;
         private const string OrdersConnectionString = nameof(OrdersConnectionString);
+
+        private ISchedulerFactory _schedulerFactory;
+        private IScheduler _scheduler;
 
 
         public Startup(IConfiguration configuration)
         {
-            _Configuration = configuration;
+            Configuration = configuration;
         }
 
         /// <summary>
@@ -51,7 +61,7 @@ namespace SampleProject.API
                     options
                         .ReplaceService<IValueConverterSelector, StronglyTypedIdValueConverterSelector>()
 
-                        .UseSqlServer(this._Configuration[OrdersConnectionString]);
+                        .UseSqlServer(this.Configuration[OrdersConnectionString]);
                 });
 
             services.AddProblemDetails(x =>
@@ -78,6 +88,8 @@ namespace SampleProject.API
                 app.UseProblemDetails();
             }
 
+            this.StartQuartz(serviceProvider);
+
             ConfigureSwagger(app);
 
             app.UseRouting();
@@ -87,6 +99,54 @@ namespace SampleProject.API
                 endpoints.MapControllers();
             });
         }
+
+
+        public void StartQuartz(IServiceProvider serviceProvider)
+        {
+            this._schedulerFactory = new StdSchedulerFactory();
+            this._scheduler = _schedulerFactory.GetScheduler().GetAwaiter().GetResult();
+
+            var container = new ContainerBuilder();
+            container.RegisterModule(new OutboxModule());
+            container.RegisterModule(new MediatorModule());
+            container.RegisterModule(new InfrastructureModule(Configuration[OrdersConnectionString]));
+            container.RegisterModule(new EmailModule());
+
+            container.Register(c =>
+            {
+                var dbContextOptionsBuilder = new DbContextOptionsBuilder<OrdersContext>();
+                dbContextOptionsBuilder.UseSqlServer(Configuration[OrdersConnectionString]);
+
+                dbContextOptionsBuilder
+                    .ReplaceService<IValueConverterSelector, StronglyTypedIdValueConverterSelector>();
+
+                return new OrdersContext(dbContextOptionsBuilder.Options);
+            }).AsSelf().InstancePerLifetimeScope();
+
+            _scheduler.JobFactory = new JobFactory(container.Build());
+
+            _scheduler.Start().GetAwaiter().GetResult();
+
+            var processOutboxJob = JobBuilder.Create<ProcessOutboxJob>().Build();
+            var trigger =
+                TriggerBuilder
+                    .Create()
+                    .StartNow()
+                    .WithCronSchedule("0/15 * * ? * *")
+                    .Build();
+
+            _scheduler.ScheduleJob(processOutboxJob, trigger).GetAwaiter().GetResult();
+
+            var processInternalCommandsJob = JobBuilder.Create<ProcessInternalCommandsJob>().Build();
+            var triggerCommandsProcessing =
+                TriggerBuilder
+                    .Create()
+                    .StartNow()
+                    .WithCronSchedule("0/15 * * ? * *")
+                    .Build();
+            _scheduler.ScheduleJob(processInternalCommandsJob, triggerCommandsProcessing).GetAwaiter().GetResult();
+        }
+
 
         private static void ConfigureSwagger(IApplicationBuilder app)
         {
