@@ -27,7 +27,7 @@ namespace SampleProject.API.InternalCommands
         {
             var command = await this._ordersContext.InternalCommands.SingleOrDefaultAsync(x => x.Id == id);
 
-            Type type = Assembly.GetAssembly(typeof(MarkCustomerAsWelcomedCommand).GetType(command.Type));
+            Type type = Assembly.GetAssembly(typeof(MarkCustomerAsWelcomedCommand)).GetType(command.Type);
 
             var request = JsonConvert.DeserializeObject(command.Data, type);
             

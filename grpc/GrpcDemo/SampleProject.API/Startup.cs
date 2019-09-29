@@ -38,15 +38,23 @@ namespace SampleProject.API
         private ISchedulerFactory _schedulerFactory;
         private IScheduler _scheduler;
 
+        public ILifetimeScope AutofacContainer { get; private set; }
+
         public Startup(IConfiguration configuration)
         {
             _configuration = configuration;
         }
-        
-        // This method gets called by the runtime. Use this method to add services to the container.
-        // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
-        public IServiceProvider ConfigureServices(IServiceCollection services)
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="services"></param>
+        public void ConfigureServices(IServiceCollection services)
         {
+            services.AddOptions();
+
+            
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
             
             AddSwagger(services);
@@ -65,8 +73,24 @@ namespace SampleProject.API
                 x.Map<BusinessRuleValidationException>(ex => new BusinessRuleValidationExceptionProblemDetails(ex));
             });
 
-            return CreateAutofacServiceProvider(services);
         }
+
+        public void ConfigureContainer(ContainerBuilder builder)
+        {
+            //builder.RegisterModule(new AutofacModule());
+
+            builder.RegisterModule(new InfrastructureModule(this._configuration[OrdersConnectionString]));
+            builder.RegisterModule(new MediatorModule());
+            builder.RegisterModule(new ForeignExchangeModule());
+            builder.RegisterModule(new DomainModule());
+            builder.RegisterModule(new EmailModule());
+
+            var children = this._configuration.GetSection("Caching").GetChildren();
+            Dictionary<string, TimeSpan> configuration = children.ToDictionary(child => child.Key, child => TimeSpan.Parse(child.Value));
+            builder.RegisterModule(new CachingModule(configuration));
+
+        }
+
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IServiceProvider serviceProvider)
@@ -80,10 +104,23 @@ namespace SampleProject.API
                 app.UseProblemDetails();
             }
 
+            
+            this.AutofacContainer = app.ApplicationServices.GetAutofacRoot();
+
+
 
             this.StartQuartz(serviceProvider);
             
             ConfigureSwagger(app);
+
+            app.UseStaticFiles();
+
+            app.UseRouting();
+
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllers();
+            });
         }
 
         private IServiceProvider CreateAutofacServiceProvider(IServiceCollection services)

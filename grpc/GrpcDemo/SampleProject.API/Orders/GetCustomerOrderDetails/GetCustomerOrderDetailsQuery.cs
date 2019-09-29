@@ -9,7 +9,7 @@ namespace SampleProject.API.Orders.GetCustomerOrderDetails
 
         public GetCustomerOrderDetailsQuery(Guid orderId)
         {
-            OrderId = orderId;
+            this.OrderId = orderId;
         }
     }
 }

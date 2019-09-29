@@ -6,7 +6,7 @@ using SampleProject.Infrastructure;
 
 namespace SampleProject.API.Orders.GetCustomerOrderDetails
 {
-    public class GetCustomerOrderDetailsQueryHandler : IRequestHandler<GetCustomerOrderDetailsQuery, OrderDetailsDto>
+    internal class GetCustomerOrderDetailsQueryHandler : IRequestHandler<GetCustomerOrderDetailsQuery, OrderDetailsDto>
     {
         private readonly ISqlConnectionFactory _sqlConnectionFactory;
 
