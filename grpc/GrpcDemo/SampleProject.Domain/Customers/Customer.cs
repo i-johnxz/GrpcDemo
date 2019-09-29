@@ -25,9 +25,7 @@ namespace SampleProject.Domain.Customers
         private Customer()
         {
             this._orders = new List<Order>();
-            
         }
-
 
         public Customer(string email, string name, ICustomerUniquenessChecker customerUniquenessChecker)
         {
@@ -37,7 +35,6 @@ namespace SampleProject.Domain.Customers
             this._welcomeEmailWasSent = false;
 
             var isUnique = customerUniquenessChecker.IsUnique(this);
-
             if (!isUnique)
             {
                 throw new BusinessRuleValidationException("Customer with this email already exists.");
@@ -52,7 +49,7 @@ namespace SampleProject.Domain.Customers
             {
                 throw new BusinessRuleValidationException("You cannot order more than 2 orders on the same day");
             }
-            
+
             this._orders.Add(order);
 
             this.AddDomainEvent(new OrderPlacedEvent(order.Id));
@@ -66,7 +63,7 @@ namespace SampleProject.Domain.Customers
         {
             var order = this._orders.Single(x => x.Id == orderId);
             order.Change(existingProducts, newOrderProducts, conversionRates);
-            
+
             this.AddDomainEvent(new OrderChangedEvent(order));
         }
 
@@ -74,7 +71,7 @@ namespace SampleProject.Domain.Customers
         {
             var order = this._orders.Single(x => x.Id == orderId);
             order.Remove();
-            
+
             this.AddDomainEvent(new OrderRemovedEvent(order));
         }
 
@@ -89,6 +86,5 @@ namespace SampleProject.Domain.Customers
 
             return order.GetProductsIds();
         }
-
     }
 }

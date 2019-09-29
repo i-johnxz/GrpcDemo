@@ -7,7 +7,7 @@ namespace SampleProject.Infrastructure.InternalCommands
     {
         public void Configure(EntityTypeBuilder<InternalCommand> builder)
         {
-            builder.ToTable(nameof(InternalCommands), SchemaNames.Application);
+            builder.ToTable("InternalCommands", SchemaNames.Application);
 
             builder.HasKey(b => b.Id);
             builder.Property(b => b.Id).ValueGeneratedNever();

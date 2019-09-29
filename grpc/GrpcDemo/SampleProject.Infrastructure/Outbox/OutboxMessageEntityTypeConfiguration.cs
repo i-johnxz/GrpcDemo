@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace SampleProject.Infrastructure.Outbox
 {
-    public class OutboxMessageEntityTypeConfiguration : IEntityTypeConfiguration<OutboxMessage>
+    internal class OutboxMessageEntityTypeConfiguration : IEntityTypeConfiguration<OutboxMessage>
     {
         public void Configure(EntityTypeBuilder<OutboxMessage> builder)
         {

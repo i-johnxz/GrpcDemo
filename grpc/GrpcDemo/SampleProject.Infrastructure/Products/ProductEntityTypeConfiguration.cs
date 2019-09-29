@@ -4,14 +4,14 @@ using SampleProject.Domain.Products;
 
 namespace SampleProject.Infrastructure.Products
 {
-    public class ProductEntityTypeConfiguration : IEntityTypeConfiguration<Product>
+    internal class ProductEntityTypeConfiguration : IEntityTypeConfiguration<Product>
     {
         public void Configure(EntityTypeBuilder<Product> builder)
         {
-            builder.ToTable(nameof(Products), SchemaNames.Orders);
+            builder.ToTable("Products", SchemaNames.Orders);
 
             builder.HasKey(b => b.Id);
-            
+
             builder.OwnsMany<ProductPrice>("_prices", y =>
             {
                 y.ToTable("ProductPrices", SchemaNames.Orders);
@@ -26,4 +26,5 @@ namespace SampleProject.Infrastructure.Products
             });
         }
     }
+
 }

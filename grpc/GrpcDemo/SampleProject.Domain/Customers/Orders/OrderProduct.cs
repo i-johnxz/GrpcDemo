@@ -11,18 +11,17 @@ namespace SampleProject.Domain.Customers.Orders
 {
     public class OrderProduct : Entity
     {
-        public int Quantity { get; protected set; }
+        public int Quantity { get; private set; }
 
-        public ProductId ProductId { get; protected set; }
+        public ProductId ProductId { get; private set; }
 
         internal MoneyValue Value { get; private set; }
 
         internal MoneyValue ValueInEUR { get; private set; }
 
-
         private OrderProduct()
         {
-            
+
         }
 
         public OrderProduct(

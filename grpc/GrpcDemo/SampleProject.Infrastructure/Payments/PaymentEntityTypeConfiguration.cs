@@ -11,11 +11,10 @@ namespace SampleProject.Infrastructure.Payments
     {
         public void Configure(EntityTypeBuilder<Payment> builder)
         {
-            builder.ToTable(nameof(Payments), SchemaNames.Payments);
+            builder.ToTable("Payments", SchemaNames.Payments);
 
             builder.HasKey(b => b.Id);
-            
-            
+
             builder.Property<DateTime>("_createDate").HasColumnName("CreateDate");
             builder.Property<OrderId>("_orderId").HasColumnName("OrderId");
             builder.Property("_status").HasColumnName("StatusId").HasConversion(new EnumToNumberConverter<PaymentStatus, byte>());

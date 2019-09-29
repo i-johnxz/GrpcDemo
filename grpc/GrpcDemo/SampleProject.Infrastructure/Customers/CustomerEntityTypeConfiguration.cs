@@ -13,10 +13,10 @@ namespace SampleProject.Infrastructure.Customers
     {
         internal const string OrdersList = "_orders";
         internal const string OrderProducts = "_orderProducts";
-        
+
         public void Configure(EntityTypeBuilder<Customer> builder)
         {
-            builder.ToTable(nameof(Customers), SchemaNames.Orders);
+            builder.ToTable("Customers", SchemaNames.Orders);
 
             builder.HasKey(b => b.Id);
 
@@ -25,22 +25,21 @@ namespace SampleProject.Infrastructure.Customers
             builder.OwnsMany<Order>(OrdersList, x =>
             {
                 x.ToTable("Orders", SchemaNames.Orders);
-                x.WithOwner().HasForeignKey("CustomerId");
+                //x.WithOwner().HasForeignKey("CustomerId");
                 x.Property<bool>("_isRemoved").HasColumnName("IsRemoved");
                 x.Property<DateTime>("_orderDate").HasColumnName("OrderDate");
                 x.Property<DateTime?>("_orderChangeDate").HasColumnName("OrderChangeDate");
                 x.Property<OrderId>("Id");
                 x.HasKey("Id");
 
-                x.Property("_status").HasColumnName("StatusId")
-                    .HasConversion(new EnumToNumberConverter<OrderStatus, byte>());
+                x.Property("_status").HasColumnName("StatusId").HasConversion(new EnumToNumberConverter<OrderStatus, byte>());
 
                 x.OwnsMany<OrderProduct>(OrderProducts, y =>
                 {
                     y.ToTable("OrderProducts", SchemaNames.Orders);
                     y.Property<OrderId>("OrderId");
                     y.Property<ProductId>("ProductId");
-                    y.WithOwner().HasForeignKey("OrderId");
+                    //y.WithOwner().HasForeignKey("OrderId");
                     y.HasKey("OrderId", "ProductId");
 
                     y.OwnsOne<MoneyValue>("Value", mv =>
@@ -55,7 +54,7 @@ namespace SampleProject.Infrastructure.Customers
                         mv.Property(p => p.Value).HasColumnName("ValueInEUR");
                     });
                 });
-                
+
                 x.OwnsOne<MoneyValue>("_value", y =>
                 {
                     y.Property(p => p.Currency).HasColumnName("Currency");

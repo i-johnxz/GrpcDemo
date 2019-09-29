@@ -9,15 +9,15 @@ namespace SampleProject.Domain.Products
 {
     public class Product : Entity, IAggregateRoot
     {
-        public ProductId Id { get; set; }
+        public ProductId Id { get; private set; }
 
-        public string Name { get; set; }
+        public string Name { get; private set; }
 
         private List<ProductPrice> _prices;
 
         private Product()
         {
-            
+
         }
 
         internal MoneyValue GetPrice(string currency)

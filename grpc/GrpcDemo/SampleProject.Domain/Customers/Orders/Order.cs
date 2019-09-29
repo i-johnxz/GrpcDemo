@@ -76,8 +76,6 @@ namespace SampleProject.Domain.Customers.Orders
             this._isRemoved = true;
         }
 
-
-
         private void CalculateOrderValue()
         {
             var value = this._orderProducts.Sum(x => x.Value.Value);
@@ -86,7 +84,6 @@ namespace SampleProject.Domain.Customers.Orders
             var valueInEUR = this._orderProducts.Sum(x => x.ValueInEUR.Value);
             this._valueInEUR = new MoneyValue(valueInEUR, "EUR");
         }
-
 
         internal bool IsOrderedToday()
         {
