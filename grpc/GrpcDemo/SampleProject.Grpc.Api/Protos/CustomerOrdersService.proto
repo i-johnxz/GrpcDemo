@@ -1,0 +1,81 @@
+syntax = "proto3";
+
+option csharp_namespace = "SampleProject.Grpc.Api.Protos";
+
+package CustomerOrdersServices;
+
+service CustomerOrdersService {
+	rpc GetCustomerOrders(GetCusomerOrderRequest) returns (OrderDtos) {}
+	rpc GetCustomerOrderDetails(GetCustomerOrderDetailsRequest) returns (OrderDetailsDto) {}
+	rpc AddCustomerOrder(AddCustomerOrderRequest) returns (AddCustomerOrderResult) {}
+	rpc ChangeCustomerOrder(ChangeCustomerOrderRequest) returns (ChangeCustomerOrderResult) {}
+	rpc RemoveCustomerOrder(RemoveCustomerOrderRequest) returns (RemoveCustomerOrderResult) {}
+}
+
+
+message GetCusomerOrderRequest {
+	string customerId = 1;
+}
+
+message OrderDto {
+	string id = 1;
+	double value = 2;
+	string currency = 3;
+	bool isRemoved = 4;
+}
+
+message OrderDtos {	
+	repeated OrderDto orders = 1;
+}
+
+
+message GetCustomerOrderDetailsRequest {
+	string orderId = 1;
+}
+
+message ProductDto {
+	string id = 1;
+	int32 quantity = 2;
+	string currency = 3;
+	string name = 4;
+}
+
+message OrderDetailsDto {	
+	string id = 1;
+	double value = 2;
+	string currency = 3;
+	bool isRemoved = 4;
+	repeated ProductDto products = 5;
+}
+
+message AddCustomerOrderRequest {
+	message CustomerOrderRequest {
+		repeated ProductDto products = 1;
+	}
+	string customerId = 1;
+	CustomerOrderRequest request = 2;
+}
+
+message AddCustomerOrderResult {
+}
+
+message ChangeCustomerOrderRequest {
+	message CustomerOrderRequest {
+		repeated ProductDto products = 1;
+	}
+	string customerId = 1;
+	string orderId = 2;
+	CustomerOrderRequest request = 3;
+}
+
+message ChangeCustomerOrderResult {
+}
+
+message RemoveCustomerOrderRequest {
+	string customerId = 1;
+	string orderId = 2;
+}
+
+message RemoveCustomerOrderResult {
+	repeated OrderDto OrderDtos = 1;
+}

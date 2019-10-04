@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+option csharp_namespace = "SampleProject.Grpc.Api.Protos";
+
+package CustomerServices;
+
+service CustomerService {
+	rpc RegisterCustomer (RegisterCustomerRequest) returns (CustomerDto) {}
+}
+
+message RegisterCustomerRequest {
+	string email = 1;
+	string name = 2;
+}
+
+message CustomerDto {
+	string id = 1;
+	
+}
