@@ -6,11 +6,11 @@ namespace SampleProject.Domain.SharedKernel
 {
     public class MoneyValue
     {
-        public decimal Value { get; set; }
+        public decimal? Value { get; set; }
 
         public string Currency { get; set; }
 
-        public MoneyValue(decimal value, string currency)
+        public MoneyValue(decimal? value, string currency)
         {
             Value = value;
             Currency = currency;

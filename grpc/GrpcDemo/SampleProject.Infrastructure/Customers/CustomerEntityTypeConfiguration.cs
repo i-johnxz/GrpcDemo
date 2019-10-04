@@ -25,7 +25,7 @@ namespace SampleProject.Infrastructure.Customers
             builder.OwnsMany<Order>(OrdersList, x =>
             {
                 x.ToTable("Orders", SchemaNames.Orders);
-                //x.WithOwner().HasForeignKey("CustomerId");
+                x.WithOwner().HasForeignKey("CustomerId");
                 x.Property<bool>("_isRemoved").HasColumnName("IsRemoved");
                 x.Property<DateTime>("_orderDate").HasColumnName("OrderDate");
                 x.Property<DateTime?>("_orderChangeDate").HasColumnName("OrderChangeDate");
@@ -39,8 +39,9 @@ namespace SampleProject.Infrastructure.Customers
                     y.ToTable("OrderProducts", SchemaNames.Orders);
                     y.Property<OrderId>("OrderId");
                     y.Property<ProductId>("ProductId");
-                    //y.WithOwner().HasForeignKey("OrderId");
+                    y.WithOwner().HasForeignKey("OrderId");
                     y.HasKey("OrderId", "ProductId");
+
 
                     y.OwnsOne<MoneyValue>("Value", mv =>
                     {
