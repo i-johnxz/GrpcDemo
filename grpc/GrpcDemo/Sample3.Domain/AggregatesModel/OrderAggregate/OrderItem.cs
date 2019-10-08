@@ -3,23 +3,21 @@ using Sample3.Domain.SeedWork;
 
 namespace Sample3.Domain.AggregatesModel.OrderAggregate
 {
-    public class OrderItem : Entity
+     public class OrderItem
+        : Entity
     {
         // DDD Patterns comment
         // Using private fields, allowed since EF Core 1.1, is a much better encapsulation
         // aligned with DDD Aggregates and Domain Entities (Instead of properties and property collections)
-        private string _productName;
-        private string _pictureUrl;
+        private string  _productName;
+        private string  _pictureUrl;
         private decimal _unitPrice;
         private decimal _discount;
-        private int _units;
+        private int     _units;
 
         public int ProductId { get; private set; }
 
-        protected OrderItem()
-        {
-            
-        }
+        protected OrderItem() { }
 
         public OrderItem(int productId, string productName, decimal unitPrice, decimal discount, string PictureUrl, int units = 1)
         {
@@ -34,13 +32,12 @@ namespace Sample3.Domain.AggregatesModel.OrderAggregate
             }
 
             ProductId = productId;
-            
-            
+
             _productName = productName;
-            _pictureUrl = PictureUrl;
             _unitPrice = unitPrice;
             _discount = discount;
             _units = units;
+            _pictureUrl = PictureUrl;
         }
 
         public string GetPictureUri() => _pictureUrl;
@@ -50,7 +47,7 @@ namespace Sample3.Domain.AggregatesModel.OrderAggregate
             return _discount;
         }
 
-        public decimal GetUnits()
+        public int GetUnits()
         {
             return _units;
         }

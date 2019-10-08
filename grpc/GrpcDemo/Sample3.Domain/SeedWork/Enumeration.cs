@@ -20,7 +20,7 @@ namespace Sample3.Domain.SeedWork
         public override string ToString() => Name;
 
 
-        public static IEnumerable<T> GetAll<T>() where T : Enumeration
+        public static IEnumerable<T> GetAll<T>()
         {
             var fields = typeof(T).GetFields(BindingFlags.Public | BindingFlags.Static | BindingFlags.DeclaredOnly);
 

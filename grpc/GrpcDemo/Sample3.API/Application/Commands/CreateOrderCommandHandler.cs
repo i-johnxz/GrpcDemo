@@ -4,8 +4,10 @@ using System.Threading.Tasks;
 using MediatR;
 using Microsoft.Extensions.Logging;
 using Sample3.API.Application.IntegrationEvents;
+using Sample3.API.Application.IntegrationEvents.Events;
 using Sample3.API.Infrastructure.Services;
 using Sample3.Domain.AggregatesModel.OrderAggregate;
+using Sample3.Infrastructure.Idempotency;
 
 namespace Sample3.API.Application.Commands
 {
@@ -36,7 +38,44 @@ namespace Sample3.API.Application.Commands
         public async Task<bool> Handle(CreateOrderCommand message, CancellationToken cancellationToken)
         {
             // Add Integration event to clean the basket
-            return await Task.FromResult(true);
+            var orderStartedIntegrationEvent = new OrderStartedIntegrationEvent(message.UserId);
+            await _orderingIntegrationEventService.AddAndSaveEventAsync(orderStartedIntegrationEvent);
+            
+            // Add/Update the Buyer AggregateRoot
+            // DDD patterns comment: Add child entities and value-objects through the Order Aggregate-Root
+            // methods and constructor so validations, invariants and business logic 
+            // make sure that consistency is preserved across the whole aggregate
+            var address = new Address(message.Street, message.City, message.State, message.Country, message.ZipCode);
+            var order = new Order(message.UserId, message.UserName, address, message.CardTypeId, message.CardNumber,
+                message.CardSecurityNumber, message.CardHolderName, message.CardExpiration);
+
+            foreach (var item in message.OrderItems)
+            {
+                order.AddOrderItem(item.ProductId, item.ProductName, item.UnitPrice, item.Discount, item.PictureUrl,
+                    item.Units);
+            }
+            
+            _logger.LogInformation("----- Creating Order - Order: {@Order}", order);
+            _orderRepository.Add(order);
+
+            return await _orderRepository.UnitOfWork.SaveEntitiesAsync(cancellationToken);
+        }
+    }
+    
+    // Use for Idempotency in Command process
+    public class CreateOrderIdentifiedCommandHandler : IdentifiedCommandHandler<CreateOrderCommand, bool>
+    {
+        public CreateOrderIdentifiedCommandHandler(
+            IMediator mediator, 
+            IRequestManager requestManager, 
+            ILogger<IdentifiedCommandHandler<CreateOrderCommand, bool>> logger) 
+            : base(mediator, requestManager, logger)
+        {
+        }
+
+        protected override bool CreateResultForDuplicateRequest()
+        {
+            return true;   // Ignore duplicate requests for creating order.
         }
     }
 }

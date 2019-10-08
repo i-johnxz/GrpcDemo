@@ -28,4 +28,8 @@
     <ProjectReference Include="..\Sample3.Infrastructure\Sample3.Infrastructure.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Setup" />
+  </ItemGroup>
+
 </Project>

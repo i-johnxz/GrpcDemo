@@ -1,0 +1,28 @@
+using System.Collections.Generic;
+using EventBus.Events;
+
+namespace Sample3.API.Application.IntegrationEvents.Events
+{
+    public class OrderStatusChangedToPaidIntegrationEvent : IntegrationEvent
+    {
+        public int OrderId { get; }
+
+        public string OrderStatus { get; }
+
+        public string BuyerName { get; }
+
+        public IEnumerable<OrderStockItem> OrderStockItems { get; set; }
+
+        public OrderStatusChangedToPaidIntegrationEvent(
+            int orderId, 
+            string orderStatus, 
+            string buyerName, 
+            IEnumerable<OrderStockItem> orderStockItems)
+        {
+            OrderId = orderId;
+            OrderStatus = orderStatus;
+            BuyerName = buyerName;
+            OrderStockItems = orderStockItems;
+        }
+    }
+}

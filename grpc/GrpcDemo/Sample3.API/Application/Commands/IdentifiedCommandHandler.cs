@@ -62,8 +62,33 @@ namespace Sample3.API.Application.Commands
 
                     switch (command)
                     {
+                        case CreateOrderCommand createOrderCommand:
+                            idProperty = nameof(createOrderCommand.UserId);
+                            commandId = createOrderCommand.UserId;
+                            break;
+                        case CancelOrderCommand cancelOrderCommand:
+                            idProperty = nameof(cancelOrderCommand.OrderNumber);
+                            commandId = $"{cancelOrderCommand.OrderNumber}";
+                            break;
+                        case ShipOrderCommand shipOrderCommand:
+                            idProperty = nameof(shipOrderCommand.OrderNumber);
+                            commandId = $"{shipOrderCommand.OrderNumber}";
+                            break;
+                        default:
+                            idProperty = "Id?";
+                            command = "n/a";
+                            break;
                     }
 
+                    _logger.LogInformation(
+                        "----- Sending command: {CommandName} - {IdProperty}: {CommandId} ({@Command})",
+                        commandName,
+                        idProperty,
+                        commandId,
+                        command);
+                    
+                    
+                    // Send the embeded business command to mediator so it runs its related CommandHandler 
                     var result = await _mediator.Send(command, cancellationToken);
 
                     _logger.LogInformation(
@@ -76,10 +101,10 @@ namespace Sample3.API.Application.Commands
 
                     return result;
                 }
-                catch (Exception e)
+                catch 
                 {
-                    Console.WriteLine(e);
-                    throw;
+                    
+                    return default(R);
                 }
             }
         }
