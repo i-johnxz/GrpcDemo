@@ -1,6 +1,6 @@
 using System.Threading.Tasks;
 
-namespace Sample4.Application.CloseAccount
+namespace Sample4.Application.Boundaries.CloseAccount
 {
     public interface IUseCase
     {

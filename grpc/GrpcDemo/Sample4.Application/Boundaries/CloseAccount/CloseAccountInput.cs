@@ -1,7 +1,7 @@
 using System;
 using Sample4.Application.Exceptions;
 
-namespace Sample4.Application.CloseAccount
+namespace Sample4.Application.Boundaries.CloseAccount
 {
     public sealed class CloseAccountInput
     {

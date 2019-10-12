@@ -1,7 +1,7 @@
 using System;
 using Sample4.Domain.Accounts;
 
-namespace Sample4.Application.CloseAccount
+namespace Sample4.Application.Boundaries.CloseAccount
 {
     public sealed class CloseAccountOutput
     {
