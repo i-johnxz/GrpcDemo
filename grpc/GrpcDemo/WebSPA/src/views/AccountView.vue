@@ -1,10 +1,16 @@
 <template>
-    $END$
+    <div>
+        <Account />
+    </div>
 </template>
 
 <script>
+    import Account from "@/components/Account";
     export default {
-        name: "AccountView"
+        name: "account",
+        components: {
+            Account
+        }
     }
 </script>
 

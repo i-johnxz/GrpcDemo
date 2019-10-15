@@ -1,10 +1,17 @@
 <template>
-    $END$
+    <div>
+        <Chat />
+    </div>
 </template>
 
 <script>
+    import Chat from '@/components/Chat'
+
     export default {
-        name: "ChatView"
+        name: "chat",
+        components: {
+            Chat
+        }
     }
 </script>
 

@@ -1,10 +1,16 @@
 <template>
-    $END$
+    <div>
+        <Chatbot />
+    </div>
 </template>
 
 <script>
+    import Chatbot from "@/components/Chatbot";
     export default {
-        name: "ChatbotView"
+        name: "chatbot",
+        components: {
+            Chatbot
+        }
     }
 </script>
 
