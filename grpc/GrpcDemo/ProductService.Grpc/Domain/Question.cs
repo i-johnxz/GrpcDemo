@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace ProductService.Domain
+namespace ProductService.Grpc.Domain
 {
     public class Question
     {

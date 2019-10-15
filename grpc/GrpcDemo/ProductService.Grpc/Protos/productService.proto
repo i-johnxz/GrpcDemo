@@ -1,0 +1,91 @@
+syntax = "proto3";
+
+option csharp_namespace = "ProductService.Grpc.Protos";
+
+package ProductServiceContext;
+
+service ProductService {
+	rpc GetAll(FindAllProductsQuery) returns (GetAllResponse) {}
+	rpc GetByCode(FindProductByCodeQuery) returns (ProductDto) {}
+	rpc PostDraft(CreateProductDraftCommand) returns (CreateProductDraftResult) {}
+	rpc Activate(ActivateProductCommand) returns (ActivateProductResult) {}
+	rpc Discontinue(DiscontinueProductCommand) returns (DiscontinueProductResult) {}
+}
+
+message FindAllProductsQuery {
+}
+
+message GetAllResponse {
+	repeated ProductDto products = 1;
+}
+
+
+message FindProductByCodeQuery {
+	string productCode = 1;
+}
+
+message CreateProductDraftCommand {
+	ProductDraftDto ProductDraft = 1;
+}
+
+message CreateProductDraftResult {
+	string productId = 1;
+}
+
+message ActivateProductCommand {
+	string productId = 1;
+}
+
+message ActivateProductResult {
+	string productId = 1;
+}
+
+message DiscontinueProductCommand {
+	string productId = 1;
+}
+
+message DiscontinueProductResult {
+	string productId = 1;
+} 
+
+message CoverDto {
+	string code = 1;
+	string name = 2;
+	string description = 3;
+	bool optional = 4;
+	float sumInsured = 5;
+}
+
+message QuestionDto {
+	string questionCode = 1;
+	int32 index = 2;
+	string text = 3;
+	enum QuestionType 
+	{
+		None = 0;
+		Choice = 1;
+		Date = 2;
+		Numeric = 3;
+	}
+	QuestionType questionType = 4;
+}
+
+message ProductDto {
+	string code = 1;
+	string name = 2;
+	string image = 3;
+	string description = 4;
+	repeated CoverDto covers = 5;
+	repeated QuestionDto questions = 6;
+	int32 maxNumberOfInsured = 7;
+}
+
+message ProductDraftDto {
+	string code = 1;
+	string name = 2;
+	string image = 3;
+	string description = 4;
+	repeated CoverDto covers = 5;
+	repeated QuestionDto questions = 6;
+	int32 maxNumberOfInsured = 7;
+}

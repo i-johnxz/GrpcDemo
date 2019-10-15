@@ -2,9 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using ProductService.Api.Queries.Dtos;
-using ProductService.Domain;
+using ProductService.Grpc.Domain;
 
-namespace ProductService.Queries.Mappers
+namespace ProductService.Grpc.Queries.Mappers
 {
     public static class ProductMapper
     {

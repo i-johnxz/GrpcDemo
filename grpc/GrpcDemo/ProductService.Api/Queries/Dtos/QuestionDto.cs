@@ -18,6 +18,7 @@ namespace ProductService.Api.Queries.Dtos
     
     public enum QuestionType
     {
+        None = 0,
         Choice = 1,
         Date,
         Numeric

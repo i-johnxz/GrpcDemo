@@ -6,16 +6,14 @@ using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using Microsoft.OpenApi.Models;
-using ProductService.DataAccess.EF;
-using ProductService.Init;
+using ProductService.Grpc.DataAccess.EF;
+using ProductService.Grpc.Init;
 
-namespace ProductService
+namespace ProductService.Grpc
 {
     public class Startup
     {
@@ -27,17 +25,14 @@ namespace ProductService
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
+        // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers().AddNewtonsoftJson(JsonOptions)
-                .SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
-            
+            services.AddGrpc();
+
             services.AddEFConfiguration(Configuration);
             services.AddMediatR(typeof(Startup).GetTypeInfo().Assembly);
             services.AddProductDemoInitializer();
-
-            services.AddSwaggerGen(c => { c.SwaggerDoc("v1", new OpenApiInfo {Title = "My API", Version = "v1"}); });
-
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -48,27 +43,18 @@ namespace ProductService
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseSwagger();
-
-            app.UseSwaggerUI(c =>
-            {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
-            });
-
             app.UseRouting();
 
             app.UseInitializer();
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllers();
+                endpoints.MapGrpcService<Services.ProductService>();
+                endpoints.MapGet("/", async context =>
+                {
+                    await context.Response.WriteAsync("Hello World!");
+                });
             });
-        }
-        
-        private void JsonOptions(MvcNewtonsoftJsonOptions options)
-        {
-            options.SerializerSettings.Converters.Add(new Newtonsoft.Json.Converters.StringEnumConverter());
-            options.SerializerSettings.NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore;
         }
     }
 }
