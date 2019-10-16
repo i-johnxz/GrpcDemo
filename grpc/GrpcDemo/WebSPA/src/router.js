@@ -43,6 +43,23 @@ export default new Router({
             name: 'product',
             props: true,
             component: loadView('ProductDetails')
+        },
+        {
+            path: '/policy/fromOffer/:offerNumber',
+            name: 'createPolicy',
+            props: true,
+            component: loadView('PolicyCreate')
+        },
+        {
+            path: '/policies',
+            name: 'policies',
+            component: loadView('Policies')
+        },
+        {
+            path: '/policies/:policyNumber',
+            name: 'policyDetails',
+            props: true,
+            component: loadView('PolicyDetails')
         }
     ]
 })
